@@ -1,0 +1,284 @@
+import { useState } from 'react'
+import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios";
+
+
+function Form() {
+    const [idade18_25, setIdade18_25] = useState("");
+    const [sexoMas, setSexoMas] = useState("");
+    const [etniaBca, setEtniaBca] = useState("");
+    const [solteiro, setSolteiro] = useState("");
+    const [iraMaiorIgual6, setIRAMaiorIgual6] = useState("");
+    const [ingressoAmpla, setIngressoAmpla] = useState("");
+    const [origemEscolaParticular, setOrigemEscolaParticular] = useState("");
+    const [result, setResult] = useState("");
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        switch (name) {
+            case "idade18_25":
+                setIdade18_25(value);
+                break;
+            case "sexoMas":
+                setSexoMas(value);
+                break;
+            case "etniaBca":
+                setEtniaBca(value);
+                break;
+            case "solteiro":
+                setSolteiro(value);
+                break;
+            case "iraMaiorIgual6":
+                setIRAMaiorIgual6(value);
+                break;
+            case "ingressoAmpla":
+                setIngressoAmpla(value);
+                break;
+            case "origemEscolaParticular":
+                setOrigemEscolaParticular(value);
+                break;            
+                
+            default:
+            break;
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("https://flaskclassificacao.azurewebsites.net/api", {
+                //essa conversao esta ok por ser radio buttons?
+                idade18_25: parseFloat(idade18_25),
+                sexoMas: parseFloat(sexoMas),
+                etniaBca: parseFloat(etniaBca),
+                solteiro: parseFloat(solteiro),
+                iraMaiorIgual6: parseFloat(iraMaiorIgual6),
+                ingressoAmpla: parseFloat(ingressoAmpla),
+                origemEscolaParticular: parseFloat(origemEscolaParticular)
+            });
+            setResult(response.data);
+        } catch (error) {
+            console.error("Erro ao enviar a solicitação:", error);
+        }
+    };
+
+    const clearForm = () => {
+        setIdade18_25("");
+        setSexoMas("");
+        setEtniaBca("");
+        setSolteiro("");
+        setIRAMaiorIgual6("");
+        setIngressoAmpla("");
+        setOrigemEscolaParticular("");
+        setResult("")
+    };
+
+    return (
+        <div className="container mt-5">
+            <h1 className="mb-4">Sistema Predição Evasão BSI: IFSULMINAS - MACHADO/MG</h1>
+            <form onSubmit={handleSubmit} className="p-4">
+                <div className="mb-3">
+                    <div className="radio-container">
+                        <label htmlFor="idade18_25" className="form-label">Idade entre 18 - 25 anos?</label>
+                    
+                        <label>
+                            <input
+                                type="radio"
+                                name="idade18_25"
+                                value="1"
+                                checked={idade18_25 === "1"}
+                                required
+                                onChange={handleChange}
+                            /> Sim
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="idade18_25"
+                                value="0"
+                                checked={idade18_25 === "0"}
+                                required
+                                onChange={handleChange}
+                            /> Nao
+                        </label>
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <div className="radio-container">
+                        <label htmlFor="sexoMas" className="form-label">Sexo Masculino? </label>
+                    
+                        <label>
+                            <input
+                                type="radio"
+                                name="sexoMas"
+                                value="1"
+                                checked={sexoMas === "1"}
+                                required
+                                onChange={handleChange}
+                            /> Sim
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="sexoMas"
+                                value="0"
+                                checked={sexoMas === "0"}
+                                required
+                                onChange={handleChange}
+                            /> Nao
+                        </label>
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <div className="radio-container">
+                        <label htmlFor="etniaBca" className="form-label">Etnia branca? </label>
+                    
+                        <label>
+                            <input
+                                type="radio"
+                                name="etniaBca"
+                                value="1"
+                                checked={etniaBca === "1"}
+                                required
+                                onChange={handleChange}
+                            /> Sim
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="etniaBca"
+                                value="0"
+                                checked={etniaBca === "0"}
+                                required
+                                onChange={handleChange}
+                            /> Nao
+                        </label>
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <div className="radio-container">
+                        <label htmlFor="solteiro" className="form-label">Solteiro (a)? </label>
+                    
+                        <label>
+                            <input
+                                type="radio"
+                                name="solteiro"
+                                value="1"
+                                checked={solteiro === "1"}
+                                required
+                                onChange={handleChange}
+                            /> Sim
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="solteiro"
+                                value="0"
+                                checked={solteiro === "0"}
+                                required
+                                onChange={handleChange}
+                            /> Nao
+                        </label>
+                    </div>
+                </div>
+                
+                <div className="mb-3">
+                    <div className="radio-container">
+                        <label htmlFor="iraMaiorIgual6" className="form-label">I.R.A. maior igual 6? </label>
+                    
+                        <label>
+                            <input
+                                type="radio"
+                                name="iraMaiorIgual6"
+                                value="1"
+                                checked={iraMaiorIgual6 === "1"}
+                                required
+                                onChange={handleChange}
+                            /> Sim
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="iraMaiorIgual6"
+                                value="0"
+                                checked={iraMaiorIgual6 === "0"}
+                                required
+                                onChange={handleChange}
+                            /> Nao
+                        </label>
+                    </div>
+                </div>
+
+                
+                <div className="mb-3">
+                    <div className="radio-container">
+                        <label htmlFor="ingressoAmpla" className="form-label">Ingresso Ampla concorrência? </label>
+                    
+                        <label>
+                            <input
+                                type="radio"
+                                name="ingressoAmpla"
+                                value="1"
+                                checked={ingressoAmpla === "1"}
+                                required
+                                onChange={handleChange}
+                            /> Sim
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="ingressoAmpla"
+                                value="0"
+                                checked={ingressoAmpla === "0"}
+                                required
+                                onChange={handleChange}
+                            /> Nao
+                        </label>
+                    </div>
+                </div>
+
+                
+                <div className="mb-3">
+                    <div className="radio-container">
+                        <label htmlFor="origemEscolaParticular" className="form-label">Origem escola privada? </label>
+                    
+                        <label>
+                            <input
+                                type="radio"
+                                name="origemEscolaParticular"
+                                value="1"
+                                checked={origemEscolaParticular === "1"}
+                                required
+                                onChange={handleChange}
+                            /> Sim
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="origemEscolaParticular"
+                                value="0"
+                                checked={origemEscolaParticular === "0"}
+                                required
+                                onChange={handleChange}
+                            /> Nao
+                        </label>
+                    </div>
+                </div>
+
+                
+                <button type="submit"  id="btn" className="btn btn-primary">Enviar</button>
+                <button type="button" id="clearButton"  className="btn btn-secondary" onClick={clearForm}>Limpar</button>
+            </form>
+
+            {result && (
+                <div className="card-body">
+                    <h2>Resultado da Predição</h2>
+                    <p className="alert alert-primary">{result}</p>
+                </div>
+            )}
+        </div>
+    );
+}
+
+export default Form;
