@@ -46,6 +46,20 @@ function Form() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+         if (
+            idade18_25 === "" || 
+            sexoMas === "" || 
+            etniaBca === "" || 
+            solteiro === "" || 
+            iraMaiorIgual6 === "" || 
+            ingressoAmpla === "" || 
+            origemEscolaParticular === ""
+        ) {
+            alert("Por favor, preencha todos os campos antes de enviar.");
+            return; 
+        }
+        
         try {
             const response = await axios.post("https://flaskclassificacao.azurewebsites.net/api", {
                 //essa conversao esta ok por ser radio buttons?
