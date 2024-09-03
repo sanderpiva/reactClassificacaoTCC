@@ -36,8 +36,15 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   text-align: left;
-  padding-left: 50px;
+  padding-left: 10px;
   
+}
+
+.imgH1{
+  
+  width:40px;
+  height:37px;
+  margin-left: 18px;
 }
 
 @media (prefers-color-scheme: light) {

@@ -8,7 +8,7 @@ function Form() {
     const [idade18_25, setIdade18_25] = useState("");
     const [sexoMas, setSexoMas] = useState("");
     const [etniaBca, setEtniaBca] = useState("");
-    const [solteiro, setSolteiro] = useState("");
+    const [necessidadeAux, setNecessidadeAux] = useState("");
     const [iraMaiorIgual6, setIRAMaiorIgual6] = useState("");
     const [ingressoAmpla, setIngressoAmpla] = useState("");
     const [origemEscolaParticular, setOrigemEscolaParticular] = useState("");
@@ -26,8 +26,8 @@ function Form() {
             case "etniaBca":
                 setEtniaBca(value);
                 break;
-            case "solteiro":
-                setSolteiro(value);
+            case "necessidadeAux":
+                setNecessidadeAux(value);
                 break;
             case "iraMaiorIgual6":
                 setIRAMaiorIgual6(value);
@@ -46,12 +46,12 @@ function Form() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-         if (
+        
+        if (
             idade18_25 === "" || 
             sexoMas === "" || 
             etniaBca === "" || 
-            solteiro === "" || 
+            necessidadeAux === "" || 
             iraMaiorIgual6 === "" || 
             ingressoAmpla === "" || 
             origemEscolaParticular === ""
@@ -62,11 +62,10 @@ function Form() {
         
         try {
             const response = await axios.post("https://flaskclassificacao.azurewebsites.net/api", {
-                //essa conversao esta ok por ser radio buttons?
                 idade18_25: parseFloat(idade18_25),
                 sexoMas: parseFloat(sexoMas),
                 etniaBca: parseFloat(etniaBca),
-                solteiro: parseFloat(solteiro),
+                necessidadeAux: parseFloat(necessidadeAux),
                 iraMaiorIgual6: parseFloat(iraMaiorIgual6),
                 ingressoAmpla: parseFloat(ingressoAmpla),
                 origemEscolaParticular: parseFloat(origemEscolaParticular)
@@ -81,7 +80,7 @@ function Form() {
         setIdade18_25("");
         setSexoMas("");
         setEtniaBca("");
-        setSolteiro("");
+        setNecessidadeAux("");
         setIRAMaiorIgual6("");
         setIngressoAmpla("");
         setOrigemEscolaParticular("");
@@ -90,7 +89,9 @@ function Form() {
 
     return (
         <div className="container mt-5">
-            <h1 className="mb-4">Sistema Predição Evasão BSI: IFSULMINAS - MACHADO/MG</h1>
+            <h1 className="mb-4 d-flex align-items-center">
+                Sistema Predição Evasão BSI: IFSULDEMINAS Machado MG 
+            </h1>
             <form onSubmit={handleSubmit} className="p-4">
                 <div className="mb-3">
                     <div className="radio-container">
@@ -172,14 +173,14 @@ function Form() {
                 </div>
                 <div className="mb-3">
                     <div className="radio-container">
-                        <label htmlFor="solteiro" className="form-label">Solteiro (a)? </label>
+                        <label htmlFor="necessidadeAux" className="form-label">Necessidade de auxilio? </label>
                     
                         <label>
                             <input
                                 type="radio"
-                                name="solteiro"
+                                name="necessidadeAux"
                                 value="1"
-                                checked={solteiro === "1"}
+                                checked={necessidadeAux === "1"}
                                 required
                                 onChange={handleChange}
                             /> Sim
@@ -187,9 +188,9 @@ function Form() {
                         <label>
                             <input
                                 type="radio"
-                                name="solteiro"
+                                name="necessidadeAux"
                                 value="0"
-                                checked={solteiro === "0"}
+                                checked={necessidadeAux === "0"}
                                 required
                                 onChange={handleChange}
                             /> Nao
